@@ -3,7 +3,7 @@ import java.util.Scanner;
 class Project {
     public static void main(String args[]) {
         Scanner input = new Scanner(System.in);
-        User user = new User();
+        User user = new User("Fulano");
 
         while (true) {
             System.out.println("\n----- Igor Artigos -----");
