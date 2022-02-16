@@ -16,6 +16,8 @@ class Comment extends Post {
         System.out.println(authorId);
         System.out.print("Comment ID: ");
         System.out.println(id);
+        System.out.print("Post ID: ");
+        System.out.println(postId);
         System.out.print("Likes: ");
         System.out.println(likes);
     }
