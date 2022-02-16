@@ -5,6 +5,7 @@ class User {
     int id;
     String name;
     ArrayList<Integer> postIds = new ArrayList<Integer>();
+    ArrayList<Integer> likedPostIds = new ArrayList<Integer>();
 
     public User(String name) {
         id = (int) (Math.random() * (1024));
@@ -17,12 +18,19 @@ class User {
         return post;
     }
 
+    public void like(Post post) {
+        likedPostIds.add(post.id);
+        post.addLike();
+    }
+
     public void info() {
         System.out.println("\n--- User ---");
         System.out.print("User ID: ");
         System.out.println(id);
         System.out.print("Post IDs: ");
         System.out.println(postIds);
+        System.out.print("Liked post IDs: ");
+        System.out.println(likedPostIds);
         System.out.println("------------");
     }
 }

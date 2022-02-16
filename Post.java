@@ -1,13 +1,17 @@
 import java.lang.Math;
 
 class Post {
-    int id, authorId;
+    int id, authorId, likes;
     String content;
 
     public Post(int authorId, String content) {
         this.authorId = authorId;
         this.content = content;
         id = (int) (Math.random() * 1024);
+    }
+
+    public void addLike() {
+        likes += 1;
     }
 
     public void info() {
@@ -18,6 +22,8 @@ class Post {
         System.out.println(authorId);
         System.out.print("Post ID: ");
         System.out.println(id);
+        System.out.print("Likes: ");
+        System.out.println(likes);
         System.out.println("------------");
     }
 }

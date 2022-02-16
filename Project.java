@@ -1,14 +1,16 @@
-import java.util.Scanner;
+import java.util.*;
 
 class Project {
     public static void main(String args[]) {
         Scanner input = new Scanner(System.in);
         User user = new User("Fulano");
+        ArrayList<Post> posts = new ArrayList<Post>();
 
         while (true) {
             System.out.println("\n----- Igor Artigos -----");
             System.out.println("1. Create a post");
             System.out.println("2. View user info");
+            System.out.println("3. Like post");
             System.out.println("0. Exit");
 
             String choice = input.nextLine();
@@ -20,10 +22,18 @@ class Project {
                 String content = input.nextLine();
 
                 Post post = user.post(content);
-
-                post.info();
+                posts.add(post);
             } else if (choice.equals("2")) {
                 user.info();
+            } else if (choice.equals("3")) {
+                System.out.println("\nPost ID:");
+                String postId = input.nextLine();
+
+                for (Post post : posts) {
+                    if (post.id == Integer.parseInt(postId)) {
+                        user.like(post);
+                    }
+                }
             }
         }
     }
