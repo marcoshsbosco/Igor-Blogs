@@ -16,7 +16,11 @@ class Project {
             if (choice.equals("0")) {
                 System.exit(0);
             } else if (choice.equals("1")) {
-                Post post = user.post();
+                System.out.println("\nType in the contents of your post:");
+                String content = input.nextLine();
+
+                Post post = user.post(content);
+
                 post.info();
             } else if (choice.equals("2")) {
                 user.info();

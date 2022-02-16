@@ -10,13 +10,7 @@ class User {
         id = (int) (Math.random() * (1024));
     }
 
-    public Post post() {
-        String content;
-        Scanner input = new Scanner(System.in);
-
-        System.out.println("\nType in the contents of your post!");
-        content = input.nextLine();
-
+    public Post post(String content) {
         Post post = new Post(this.id, content);
         postIds.add(post.id);
 
