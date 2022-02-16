@@ -12,6 +12,7 @@ class Project {
             System.out.println("2. View user info");
             System.out.println("3. Like post");
             System.out.println("4. See all posts");
+            System.out.println("5. Add comment");
             System.out.println("0. Exit");
 
             String choice = input.nextLine();
@@ -38,6 +39,18 @@ class Project {
             } else if (choice.equals("4")) {
                 for (Post post : posts) {
                     post.info();
+                }
+            } else if (choice.equals("5")) {
+                System.out.println("\nPost ID:");
+                String postId = input.nextLine();
+
+                for (Post post : posts) {
+                    if (post.id == Integer.parseInt(postId)) {
+                        System.out.println("\nType in the contents of your comment:");
+                        String content = input.nextLine();
+
+                        user.comment(content, post);
+                    }
                 }
             }
         }

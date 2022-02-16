@@ -1,8 +1,10 @@
 import java.lang.Math;
+import java.util.*;
 
 class Post {
     int id, authorId, likes;
     String content;
+    ArrayList<Comment> comments = new ArrayList<Comment>();
 
     public Post(int authorId, String content) {
         this.authorId = authorId;
@@ -12,6 +14,10 @@ class Post {
 
     public void addLike() {
         likes += 1;
+    }
+
+    public void addComment(Comment comment) {
+        comments.add(comment);
     }
 
     public void info() {
@@ -24,6 +30,12 @@ class Post {
         System.out.println(id);
         System.out.print("Likes: ");
         System.out.println(likes);
+
+        System.out.println("Comments: ");
+        for (Comment comment : comments) {
+            comment.info();
+        }
+
         System.out.println("------------");
     }
 }

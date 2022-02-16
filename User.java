@@ -23,6 +23,14 @@ class User {
         post.addLike();
     }
 
+    public Comment comment(String content, Post post) {
+        Comment comment = new Comment(post.id, id, content);
+
+        post.addComment(comment);
+
+        return comment;
+    }
+
     public void info() {
         System.out.println("\n--- User ---");
         System.out.print("User ID: ");
