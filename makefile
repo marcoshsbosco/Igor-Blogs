@@ -3,3 +3,6 @@ make:
 	@clear
 	@java Project
 	@clear
+clean:
+	@rm *.class
+	@clear
