@@ -6,7 +6,7 @@ class User {
     String name;
     ArrayList<Integer> postIds = new ArrayList<Integer>();
 
-    public User() {
+    public User(String name) {
         id = (int) (Math.random() * (1024));
     }
 
