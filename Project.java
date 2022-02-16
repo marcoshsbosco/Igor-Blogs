@@ -11,6 +11,7 @@ class Project {
             System.out.println("1. Create a post");
             System.out.println("2. View user info");
             System.out.println("3. Like post");
+            System.out.println("4. See all posts");
             System.out.println("0. Exit");
 
             String choice = input.nextLine();
@@ -33,6 +34,10 @@ class Project {
                     if (post.id == Integer.parseInt(postId)) {
                         user.like(post);
                     }
+                }
+            } else if (choice.equals("4")) {
+                for (Post post : posts) {
+                    post.info();
                 }
             }
         }
