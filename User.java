@@ -20,7 +20,19 @@ class User {
         return post;
     }
 
+    public ImagePost postImage(String content, String imagePath) {
+        ImagePost post = new ImagePost(this.id, content, imagePath);
+        postIds.add(post.id);
+
+        return post;
+    }
+
     public void like(Post post) {
+        likedPostIds.add(post.id);
+        post.addLike();
+    }
+
+    public void like(ImagePost post) {
         likedPostIds.add(post.id);
         post.addLike();
     }
