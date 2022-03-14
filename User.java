@@ -4,11 +4,13 @@ import java.lang.Math;
 class User {
     int id;
     String name;
+    boolean admin;
     ArrayList<Integer> postIds = new ArrayList<Integer>();
     ArrayList<Integer> likedPostIds = new ArrayList<Integer>();
 
     public User(String name) {
         id = (int) (Math.random() * (1024));
+        admin = false;
     }
 
     public Post post(String content) {
@@ -29,6 +31,10 @@ class User {
         post.addComment(comment);
 
         return comment;
+    }
+
+    public boolean isAdmin() {
+        return admin;
     }
 
     public void info() {

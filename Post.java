@@ -5,6 +5,7 @@ class Post {
     int id, authorId, likes;
     String content;
     ArrayList<Comment> comments = new ArrayList<Comment>();
+    boolean moderated = false;
 
     public Post(int authorId, String content) {
         this.authorId = authorId;
@@ -18,6 +19,14 @@ class Post {
 
     public void addComment(Comment comment) {
         comments.add(comment);
+    }
+
+    public void setModerated() {
+        moderated = true;
+    }
+
+    public boolean getModerated() {
+        return moderated;
     }
 
     public void info() {
