@@ -1,5 +1,10 @@
 import java.util.*;
 import java.lang.Math;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
+import java.io.IOException;
+import java.io.FileWriter;
+import java.io.File;
 
 class User {
     int id;
@@ -10,6 +15,7 @@ class User {
 
     public User(String name) {
         id = (int) (Math.random() * (1024));
+        this.name = name;
         admin = false;
     }
 
@@ -58,5 +64,26 @@ class User {
         System.out.print("Liked post IDs: ");
         System.out.println(likedPostIds);
         System.out.println("------------");
+    }
+
+    public void save() {
+        try {
+            File file = new File("./data/users/");
+            file.mkdir();
+            FileWriter writer = new FileWriter("data/users/" + Integer.toString(id) + ".json");
+            JSONObject json = new JSONObject();
+
+            json.put("id", id);
+            json.put("name", name);
+            json.put("admin", admin);
+            json.put("postids", postIds);
+            json.put("likedPostids", likedPostIds);
+
+            writer.write(json.toJSONString());
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("IO error.");
+            e.printStackTrace();
+        }
     }
 }

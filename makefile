@@ -4,5 +4,7 @@ make:
 	@java Project
 	@clear
 clean:
-	@rm *.class
+	@rm -f *.class
+	@rm -f *.json
+	@rm -rf data
 	@clear

@@ -1,4 +1,5 @@
 import java.util.*;
+import java.io.File;
 
 class Project {
     public static void main(String args[]) {
@@ -37,10 +38,14 @@ class Project {
                 if (path.equals("")) {
                     Post post = user.post(content);
                     posts.add(post);
+                    post.save();
                 } else {
                     ImagePost post = user.postImage(content, path);
                     imagePosts.add(post);
+                    post.save();
                 }
+
+                user.save();
 
             } else if (choice.equals("2")) {
                 user.info();
@@ -51,14 +56,18 @@ class Project {
                 for (Post post : posts) {
                     if (post.id == Integer.parseInt(postId)) {
                         user.like(post);
+                        post.save();
                     }
                 }
 
                 for (ImagePost post : imagePosts) {
                     if (post.id == Integer.parseInt(postId)) {
                         user.like(post);
+                        post.save();
                     }
                 }
+
+                user.save();
             } else if (choice.equals("4")) {
                 for (Post post : posts) {
                     if (post.getModerated() == true) {
@@ -74,7 +83,9 @@ class Project {
                         System.out.println("\nType in the contents of your comment:");
                         String content = input.nextLine();
 
-                        user.comment(content, post);
+                        Comment comment = user.comment(content, post);
+                        comment.save();
+                        post.save();
                     }
                 }
             } else if (choice.equals("6") && user.isAdmin() == true) {
@@ -100,8 +111,10 @@ class Project {
                     if (post.id == Integer.parseInt(postId)) {
                         if (accept.equals("y")) {
                             user.acceptPost(post);
+                            post.save();
                         } else {
                             posts.remove(post);
+                            post.delete();
                         }
 
                         break;
@@ -112,8 +125,10 @@ class Project {
                     if (post.id == Integer.parseInt(postId)) {
                         if (accept.equals("y")) {
                             user.acceptPost(post);
+                            post.save();
                         } else {
                             imagePosts.remove(post);
+                            post.delete();
                         }
 
                         break;

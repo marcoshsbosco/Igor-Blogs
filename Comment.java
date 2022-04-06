@@ -1,3 +1,9 @@
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
+import java.io.IOException;
+import java.io.FileWriter;
+import java.io.File;
+
 class Comment extends Post {
     int postId;
 
@@ -20,5 +26,28 @@ class Comment extends Post {
         System.out.println(postId);
         System.out.print("Likes: ");
         System.out.println(likes);
+    }
+
+    public void save() {
+        try {
+            File file = new File("./data/comments/");
+            file.mkdir();
+            FileWriter writer = new FileWriter("data/comments/" + Integer.toString(id) + ".json");
+            JSONObject json = new JSONObject();
+
+            json.put("id", id);
+            json.put("authorId", authorId);
+            json.put("likes", likes);
+            json.put("content", content);
+            json.put("comments", comments);
+            json.put("moderated", moderated);
+            json.put("postId", postId);
+
+            writer.write(json.toJSONString());
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("IO error.");
+            e.printStackTrace();
+        }
     }
 }
