@@ -4,10 +4,36 @@ import java.io.File;
 class Project {
     public static void main(String args[]) {
         Scanner input = new Scanner(System.in);
-        Admin user = new Admin("Fulano");
-        //User user = new User("Fulano Jr.");
         ArrayList<Post> posts = new ArrayList<Post>();
         ArrayList<ImagePost> imagePosts = new ArrayList<ImagePost>();
+        Admin user = new Admin("Fulano");
+        String files[];
+
+        File dir = new File("data/users/");
+        files = dir.list();
+
+        if (files != null) {
+            user.load(files[0]);
+        } else {
+            user.save();
+        }
+
+        dir = new File("data/posts/");
+        files = dir.list();
+
+        if (files != null) {
+            for (String filename : files) {
+                if (filename.charAt(0) != 'i'){
+                    Post post = new Post(0, "");
+                    post.load(filename);
+                    posts.add(post);
+                } else {
+                    ImagePost post = new ImagePost(0, "", "");
+                    post.load(filename);
+                    imagePosts.add(post);
+                }
+            }
+        }
 
         while (true) {
             System.out.println("\n----- Igor Artigos -----");

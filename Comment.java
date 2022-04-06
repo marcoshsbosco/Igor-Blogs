@@ -1,8 +1,11 @@
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
+import org.json.simple.parser.JSONParser;
 import java.io.IOException;
 import java.io.FileWriter;
+import java.io.FileReader;
 import java.io.File;
+import java.util.*;
 
 class Comment extends Post {
     int postId;
@@ -47,6 +50,32 @@ class Comment extends Post {
             writer.close();
         } catch (IOException e) {
             System.out.println("IO error.");
+            e.printStackTrace();
+        }
+    }
+
+    public void load(int commentId) {
+        File file = new File("data/comments/" + Integer.toString(commentId) + ".json");
+        JSONParser parser = new JSONParser();
+
+        try {
+            Object obj = parser.parse(new FileReader(file));
+            JSONObject json = (JSONObject) obj;
+
+            id = ((Long) json.get("id")).intValue();
+            authorId = ((Long) json.get("authorId")).intValue();
+            postId = ((Long) json.get("postId")).intValue();
+            likes = ((Long) json.get("likes")).intValue();
+            content = (String) json.get("content");
+            commentIds = (ArrayList<Integer>) json.get("commentIds");
+            moderated = (Boolean) json.get("moderated");
+
+            if (commentIds == null) {
+                commentIds = new ArrayList<Integer>();
+            } else {
+                this.loadComments();
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

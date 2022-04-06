@@ -2,8 +2,10 @@ import java.lang.Math;
 import java.util.*;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
+import org.json.simple.parser.JSONParser;
 import java.io.IOException;
 import java.io.FileWriter;
+import java.io.FileReader;
 import java.io.File;
 
 class Post {
@@ -78,6 +80,39 @@ class Post {
         } catch (IOException e) {
             System.out.println("IO error.");
             e.printStackTrace();
+        }
+    }
+
+    public void load(String filename) {
+        File file = new File("data/posts/" + filename);
+        JSONParser parser = new JSONParser();
+
+        try {
+            Object obj = parser.parse(new FileReader(file));
+            JSONObject json = (JSONObject) obj;
+
+            id = ((Long) json.get("id")).intValue();
+            authorId = ((Long) json.get("authorId")).intValue();
+            likes = ((Long) json.get("likes")).intValue();
+            content = (String) json.get("content");
+            commentIds = (ArrayList<Integer>) json.get("commentIds");
+            moderated = (Boolean) json.get("moderated");
+
+            if (commentIds == null) {
+                commentIds = new ArrayList<Integer>();
+            } else {
+                this.loadComments();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void loadComments() {
+        for (Object commentId : commentIds) {
+            Comment comment = new Comment(0, 0, "");
+            comment.load(((Long) commentId).intValue());
+            comments.add(comment);
         }
     }
 

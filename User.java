@@ -2,8 +2,10 @@ import java.util.*;
 import java.lang.Math;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
+import org.json.simple.parser.JSONParser;
 import java.io.IOException;
 import java.io.FileWriter;
+import java.io.FileReader;
 import java.io.File;
 
 class User {
@@ -57,6 +59,10 @@ class User {
 
     public void info() {
         System.out.println("\n--- User ---");
+        System.out.print("Name: ");
+        System.out.println(name);
+        System.out.print("isAdmin: ");
+        System.out.println(admin);
         System.out.print("User ID: ");
         System.out.println(id);
         System.out.print("Post IDs: ");
@@ -69,14 +75,14 @@ class User {
     public void save() {
         try {
             File file = new File("./data/users/");
-            file.mkdir();
+            file.mkdirs();
             FileWriter writer = new FileWriter("data/users/" + Integer.toString(id) + ".json");
             JSONObject json = new JSONObject();
 
             json.put("id", id);
             json.put("name", name);
             json.put("admin", admin);
-            json.put("postids", postIds);
+            json.put("postIds", postIds);
             json.put("likedPostids", likedPostIds);
 
             writer.write(json.toJSONString());
@@ -84,6 +90,32 @@ class User {
         } catch (IOException e) {
             System.out.println("IO error.");
             e.printStackTrace();
+        }
+    }
+
+    public void load(String filename) {
+        File file = new File("data/users/" + filename);
+        JSONParser parser = new JSONParser();
+
+        try {
+            Object obj = parser.parse(new FileReader(file));
+            JSONObject json = (JSONObject) obj;
+
+            id = ((Long) json.get("id")).intValue();
+            name = (String) json.get("name");
+            admin = (Boolean) json.get("admin");
+            postIds = (ArrayList<Integer>) json.get("postIds");
+            likedPostIds = (ArrayList<Integer>) json.get("likedPostIds");
+
+            if (postIds == null) {
+                postIds = new ArrayList<Integer>();
+            }
+
+            if (likedPostIds == null) {
+                likedPostIds = new ArrayList<Integer>();
+            }
+        } catch (Exception e) {
+            System.out.println(e);
         }
     }
 }
